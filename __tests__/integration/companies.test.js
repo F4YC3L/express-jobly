@@ -22,8 +22,7 @@ describe("Companies Routes Test",  function () {
 		test("creates a company", async function(){
 			const response = await request(app)
 					.post("/companies")
-					.send(
-						{
+					.send({
 						handle: "testCompany9",
 						name: "company testing",
 						num_employees: 10,
@@ -32,15 +31,15 @@ describe("Companies Routes Test",  function () {
 					});
 			expect(response.statusCode).toBe(201);
 		});
-		// test("prevent creation of 2 companies with same handle and name", async function(){
-		// 	const response = await request(app)
-		// 			.post("/companies")
-		// 			.send({
-		// 				handle: "testCompany9",
-		// 				name: "company testing"
-		// 			});
-		// 		expect(response.statusCode).toBe(500)
-		// });
+		test("prevent creation of 2 companies with same handle and name", async function(){
+			const response = await request(app)
+					.post("/companies")
+					.send({
+						handle: "test",
+						name: "TestCompany"
+					});
+				expect(response.statusCode).toBe(404)
+		});
 	});
 	describe('GET /companies/:handle', async function() {
 		test('Gets a single a company', async function() {

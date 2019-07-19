@@ -50,9 +50,8 @@ router.get("/:handle", async function(req, res, next){
 		const result = jsonschema.validate(req.body, newCompSchema)
 
 		if(!result.valid){
-			throw new ExpressError(result.errors.map(error => error.stack), 400);
+			throw new ExpressError(result.errors.map(err => err.stack), 400);
 		}
-		console.log("success")
 		const company = await Company.create(req.body);
 		return res.status(201).json({ company });
 		}catch(err){
